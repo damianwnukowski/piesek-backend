@@ -12,7 +12,7 @@
 	<artifactId>piesek</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>piesek</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Backend dla aplikacji piesek.</description>
 
 	<properties>
 		<java.version>11</java.version>
