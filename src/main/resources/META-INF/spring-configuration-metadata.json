@@ -1,0 +1,12 @@
+{
+  "properties": [
+    {
+      "name": "defaultAdminAccount.email",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "defaultAdminAccount.password",
+      "type": "java.lang.String"
+    }
+  ]
+}
