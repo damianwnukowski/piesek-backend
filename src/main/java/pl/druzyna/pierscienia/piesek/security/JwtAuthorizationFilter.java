@@ -3,19 +3,26 @@ package pl.druzyna.pierscienia.piesek.security;
 import com.auth0.jwt.JWT;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import pl.druzyna.pierscienia.piesek.repository.UserAccountRepository;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Collections;
+import java.util.List;
 
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
-    public JwtAuthorizationFilter(AuthenticationManager authenticationManager) {
+
+    private final UserAccountRepository userAccountRepository;
+
+    public JwtAuthorizationFilter(AuthenticationManager authenticationManager,
+                                  UserAccountRepository userAccountRepository) {
         super(authenticationManager);
+        this.userAccountRepository = userAccountRepository;
     }
 
     @Override
@@ -45,7 +52,9 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                     .getSubject();
 
             if (user != null) {
-                return new UsernamePasswordAuthenticationToken(user, null, Collections.emptyList());
+                List<? extends GrantedAuthority> permissions =
+                        userAccountRepository.findByEmail(user).getRole().getPermissions();
+                return new UsernamePasswordAuthenticationToken(user, null, permissions);
             }
             return null;
         }

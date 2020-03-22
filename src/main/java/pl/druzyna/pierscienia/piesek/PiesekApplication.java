@@ -6,10 +6,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Locale;
+
 @SpringBootApplication
 public class PiesekApplication {
 
 	public static void main(String[] args) {
+		Locale.setDefault(new Locale("pl"));
 		SpringApplication.run(PiesekApplication.class, args);
 	}
 

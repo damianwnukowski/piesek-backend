@@ -7,6 +7,22 @@
     {
       "name": "defaultAdminAccount.password",
       "type": "java.lang.String"
+    },
+    {
+      "name": "module-name",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "api-version",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "frontend.app.url",
+      "type": "java.lang.String"
+    },
+    {
+      "name": "frontend.app.finish.create.user.path",
+      "type": "java.lang.String"
     }
   ]
 }

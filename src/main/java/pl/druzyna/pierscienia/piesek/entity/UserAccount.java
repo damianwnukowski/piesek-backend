@@ -1,43 +1,48 @@
 package pl.druzyna.pierscienia.piesek.entity;
 
+import lombok.Data;
+import net.minidev.json.annotate.JsonIgnore;
+import org.hibernate.annotations.NaturalId;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
+import java.util.UUID;
 
 @Entity
+@Data
 public class UserAccount {
-    private Long id;
-    private String email;
-    private String password;
+
+    public UserAccount() {}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long getId() {
-        return id;
-    }
+    private Long id;
 
     @Column(nullable = false, unique = true)
+    @NaturalId
     @Email
-    public String getEmail() {
-        return email;
-    }
+    private String email;
+
+    @Length(min = 5)
+    @JsonIgnore
+    private String password;
 
     @Column(nullable = false)
-    @Length(min = 5)
-    public String getPassword() {
-        return password;
-    }
+    @Length(min = 2)
+    private String name;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+    @Column(nullable = false)
+    @Length(min = 2)
+    private String lastName;
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    private Role role;
 
-    public void setPassword(String password) {
-        this.password = password;
+    @JsonIgnore
+    private UUID activationToken;
+
+    @Transient
+    public boolean isEnabled() {
+        return activationToken == null;
     }
 }
