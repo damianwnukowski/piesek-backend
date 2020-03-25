@@ -65,7 +65,7 @@ public class AuthenticationIntegrationTest {
         TestRestTemplate testRestTemplate = new TestRestTemplate();
         return testRestTemplate
                 .postForEntity(
-                        "http://localhost:" + port + "/login",
+                        "http://localhost:" + port + "api/login",
                         body,
                         String.class
                 );
