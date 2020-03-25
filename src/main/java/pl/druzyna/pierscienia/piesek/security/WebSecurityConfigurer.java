@@ -3,6 +3,7 @@ package pl.druzyna.pierscienia.piesek.security;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -15,6 +16,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import pl.druzyna.pierscienia.piesek.repository.UserAccountRepository;
 
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(
+        prePostEnabled = true,
+        securedEnabled = true,
+        jsr250Enabled = true)
 public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
@@ -42,7 +47,7 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                         "/v3/api-docs/**",
                         "/swagger-ui.html",
                         "/swagger-ui/**",
-                        "/finalize-user-account-create")
+                        "/user-account/finalize-user-account-create")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
