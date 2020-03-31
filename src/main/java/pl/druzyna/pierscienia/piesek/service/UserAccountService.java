@@ -37,7 +37,7 @@ public class UserAccountService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    // @PreAuthorize("hasRole('ADD_USER_ACCOUNT')") TODO: naprawić
+    @PreAuthorize("hasRole('ADD_USER_ACCOUNT')")
     @Transactional
     public void initUserAccountCreate(CreateUserAccountDto createUserAccountDto) {
 

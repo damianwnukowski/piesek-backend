@@ -6,10 +6,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum Role {
-    USER(Permission.MANAGE_OWN_ACCOUNT, Permission.MANAGE_NOTIFICATIONS, Permission.MANAGE_PET_CATALOG,
-            Permission.MANAGE_EVENT_CALENDAR),
-    ADMINISTRATOR(Permission.MANAGE_OWN_ACCOUNT, Permission.MANAGE_NOTIFICATIONS, Permission.MANAGE_PET_CATALOG,
-            Permission.MANAGE_EVENT_CALENDAR, Permission.MANAGE_USER_ACCOUNTS, Permission.ADD_USER_ACCOUNT);
+    USER(Permission.ROLE_MANAGE_OWN_ACCOUNT, Permission.ROLE_MANAGE_NOTIFICATIONS, Permission.ROLE_MANAGE_PET_CATALOG,
+            Permission.ROLE_MANAGE_EVENT_CALENDAR),
+    ADMINISTRATOR(Permission.ROLE_MANAGE_OWN_ACCOUNT, Permission.ROLE_MANAGE_NOTIFICATIONS, Permission.ROLE_MANAGE_PET_CATALOG,
+            Permission.ROLE_MANAGE_EVENT_CALENDAR, Permission.ROLE_MANAGE_USER_ACCOUNTS, Permission.ROLE_ADD_USER_ACCOUNT);
 
     @Getter
     private final List<Permission> permissions;

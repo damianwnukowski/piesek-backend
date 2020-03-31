@@ -9,5 +9,5 @@ public interface SecurityConstants {
     //864_000_00L = one day
     Long JWT_EXPIRATION_TIME_MILLIS = 864_000_00L;
 
-    Algorithm JWT_ALGORITHM = Algorithm.HMAC512(SecurityHelper.generateRandomSecret(512));
+    Algorithm JWT_ALGORITHM = Algorithm.HMAC512("asd'p5039tujg0djvxmz,.vnZ'asdpfkadf");
 }
