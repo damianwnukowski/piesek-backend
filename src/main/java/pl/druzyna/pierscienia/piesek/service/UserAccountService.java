@@ -1,13 +1,16 @@
 package pl.druzyna.pierscienia.piesek.service;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import pl.druzyna.pierscienia.piesek.dto.CreateUserAccountDto;
-import pl.druzyna.pierscienia.piesek.dto.FinishUserCreateDto;
+import pl.druzyna.pierscienia.piesek.dto.user.PasswordChangeDto;
+import pl.druzyna.pierscienia.piesek.dto.user.UserAccountDto;
+import pl.druzyna.pierscienia.piesek.dto.user.FinishUserCreateDto;
 import pl.druzyna.pierscienia.piesek.entity.UserAccount;
 import pl.druzyna.pierscienia.piesek.repository.UserAccountRepository;
 
@@ -39,9 +42,10 @@ public class UserAccountService {
 
     @PreAuthorize("hasRole('ADD_USER_ACCOUNT')")
     @Transactional
-    public void initUserAccountCreate(CreateUserAccountDto createUserAccountDto) {
+    public void initUserAccountCreate(UserAccountDto userAccountDto) {
 
-        UserAccount userAccount = createUserAccountDto.convertToUserAccountEntity();
+        UserAccount userAccount = new UserAccount();
+        BeanUtils.copyProperties(userAccountDto, userAccount);
         userAccount.setActivationToken(UUID.randomUUID());
         userAccountRepository.save(userAccount);
 
@@ -60,16 +64,40 @@ public class UserAccountService {
     public void finishCreateUserAccount(FinishUserCreateDto finishUserCreateDto) {
         UserAccount userAccount = userAccountRepository.findByActivationToken(finishUserCreateDto.getToken());
 
-        if (!finishUserCreateDto.getPassword().equals(finishUserCreateDto.getPasswordConfirm())){
-            throw new ValidationException("validation.passwords.not.match");
-        }
-        if (userAccount == null) {
-            throw new ValidationException("validation.token.invalid");
-        }
-
-        userAccount.setPassword(passwordEncoder.encode(finishUserCreateDto.getPassword()));
+        validatePasswordAndSet(userAccount, finishUserCreateDto.getPassword(), finishUserCreateDto.getPasswordConfirm());
         userAccount.setActivationToken(null);
 
         userAccountRepository.save(userAccount);
+    }
+
+    @PreAuthorize("hasRole('ROLE_MANAGE_OWN_ACCOUNT')")
+    @Transactional
+    public UserAccountDto getCurrentUserDetails() {
+        UserAccount userAccount = userAccountRepository
+                .findByEmail((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        UserAccountDto userAccountDto = new UserAccountDto();
+        BeanUtils.copyProperties(userAccount, userAccountDto);
+        return userAccountDto;
+    }
+
+    @PreAuthorize("hasRole('ROLE_MANAGE_OWN_ACCOUNT')")
+    @Transactional
+    public void changePassword(PasswordChangeDto passwordChangeDto) {
+        UserAccount userAccount = userAccountRepository
+                .findByEmail((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        validatePasswordAndSet(userAccount, passwordChangeDto.getPassword(), passwordChangeDto.getPasswordConfirm());
+        userAccountRepository.save(userAccount);
+    }
+
+    private void validatePasswordAndSet(UserAccount userAccount, String newPassword, String newPasswordConfirm) {
+        if (!newPassword.equals(newPasswordConfirm)){
+            throw new ValidationException("validation.passwords.not.match");
+        }
+
+        if (newPassword.length() < 8) {
+            throw new ValidationException("validation.passwords.too.short");
+        }
+
+        userAccount.setPassword(passwordEncoder.encode(newPassword));
     }
 }

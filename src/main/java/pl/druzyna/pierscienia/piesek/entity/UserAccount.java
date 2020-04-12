@@ -3,8 +3,11 @@ package pl.druzyna.pierscienia.piesek.entity;
 import lombok.Data;
 import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Entity
@@ -18,6 +21,8 @@ public class UserAccount {
     private Long id;
 
     @Column(nullable = false, unique = true)
+    @Email
+    @NotNull
     @NaturalId
     private String email;
 
@@ -25,11 +30,16 @@ public class UserAccount {
     private String password;
 
     @Column(nullable = false)
+    @Length(min = 2)
+    @NotNull
     private String name;
 
     @Column(nullable = false)
+    @Length(min = 2)
+    @NotNull
     private String lastName;
 
+    @NotNull
     private Role role;
 
     private UUID activationToken;
