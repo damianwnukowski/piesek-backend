@@ -85,6 +85,11 @@ public class UserAccountService {
     public void changePassword(PasswordChangeDto passwordChangeDto) {
         UserAccount userAccount = userAccountRepository
                 .findByEmail((String) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+
+        if (!passwordEncoder.encode(passwordChangeDto.getCurrentPassword()).equals(userAccount.getPassword())) {
+            throw new ValidationException("validation.current.password.not.match");
+        }
+
         validatePasswordAndSet(userAccount, passwordChangeDto.getPassword(), passwordChangeDto.getPasswordConfirm());
         userAccountRepository.save(userAccount);
     }
