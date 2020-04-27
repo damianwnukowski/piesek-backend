@@ -47,12 +47,14 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                         "/v3/api-docs/**",
                         "/swagger-ui.html",
                         "/swagger-ui/**",
+                        "/h2-console/**",
                         "/user-account/finalize-user-account-create")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JwtAuthenticationFilter(authenticationManager(), objectMapper))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager(), userAccountRepository))
+                .headers().frameOptions().sameOrigin().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 

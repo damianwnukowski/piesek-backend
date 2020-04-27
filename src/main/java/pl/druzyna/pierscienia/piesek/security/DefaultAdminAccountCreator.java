@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import pl.druzyna.pierscienia.piesek.entity.Role;
 import pl.druzyna.pierscienia.piesek.entity.UserAccount;
 import pl.druzyna.pierscienia.piesek.repository.UserAccountRepository;
 
@@ -35,7 +34,7 @@ public class DefaultAdminAccountCreator implements CommandLineRunner {
         log.info("Creating default admin account with email {} and password {}", adminAccountEmail, adminAccountPassword);
         defaultAdminAccount.setEmail(adminAccountEmail);
         defaultAdminAccount.setPassword(passwordEncoder.encode(adminAccountPassword));
-        defaultAdminAccount.setRole(Role.ADMINISTRATOR);
+        defaultAdminAccount.setRole(UserAccount.Role.ADMINISTRATOR);
         defaultAdminAccount.setActivationToken(null);
         defaultAdminAccount.setName("TestName");
         defaultAdminAccount.setLastName("TestLastName");

@@ -11,7 +11,7 @@ import pl.druzyna.pierscienia.piesek.dto.user.FinishUserCreateDto;
 import pl.druzyna.pierscienia.piesek.service.UserAccountService;
 
 @RestController
-@RequestMapping("user-account")
+@RequestMapping("/user-account")
 public class UserAccountController {
 
     private final UserAccountService userAccountService;

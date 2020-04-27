@@ -5,19 +5,19 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.druzyna.pierscienia.piesek.entity.Role;
+import pl.druzyna.pierscienia.piesek.entity.UserAccount;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("role")
+@RequestMapping("/role")
 public class RolesController {
 
     @GetMapping("/all")
-    public List<Role> getRoles() {
-        return Arrays.asList(Role.values());
+    public List<UserAccount.Role> getRoles() {
+        return Arrays.asList(UserAccount.Role.values());
     }
 
     @GetMapping("/my-permissions")
