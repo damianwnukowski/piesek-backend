@@ -18,8 +18,6 @@ import java.util.UUID;
 @Data
 public class UserAccount {
 
-    public UserAccount() {}
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

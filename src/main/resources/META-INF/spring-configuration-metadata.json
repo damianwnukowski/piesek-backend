@@ -23,6 +23,10 @@
     {
       "name": "frontend.app.finish.create.user.path",
       "type": "java.lang.String"
+    },
+    {
+      "name": "animalPictures.directory",
+      "type": "java.lang.String"
     }
   ]
 }

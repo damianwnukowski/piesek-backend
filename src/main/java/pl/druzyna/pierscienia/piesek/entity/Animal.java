@@ -1,7 +1,6 @@
 package pl.druzyna.pierscienia.piesek.entity;
 
 import lombok.Data;
-import pl.druzyna.pierscienia.piesek.dto.animal.DiseaseDto;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -12,9 +11,6 @@ import java.util.List;
 @Entity
 @Data
 public class Animal {
-    public Animal() {
-
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,8 +30,9 @@ public class Animal {
 
     private String species;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Disease> diseases;
 
-    private String pictureId;
+    @Embedded
+    private Picture picture;
 }

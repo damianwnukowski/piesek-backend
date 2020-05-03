@@ -48,7 +48,8 @@ public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
                         "/swagger-ui.html",
                         "/swagger-ui/**",
                         "/h2-console/**",
-                        "/user-account/finalize-user-account-create")
+                        "/user-account/finalize-user-account-create",
+                        "/animal/*/picture/*")
                 .permitAll()
                 .anyRequest().authenticated()
                 .and()

@@ -2,7 +2,9 @@ package pl.druzyna.pierscienia.piesek.dto.animal;
 
 import lombok.Data;
 
+import java.net.URI;
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class AnimalDto {
@@ -13,4 +15,6 @@ public class AnimalDto {
     private boolean isBirthDateApproximated;
     private String description;
     private String species;
+    private URI pictureLocation;
+    private List<DiseaseDto> diseases;
 }

@@ -11,16 +11,10 @@ import java.util.Date;
 @Entity
 @Data
 public class Disease {
-    public Disease() {
-
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @ManyToOne
-    private Animal animal;
 
     @NotNull
     private Date startDate;
