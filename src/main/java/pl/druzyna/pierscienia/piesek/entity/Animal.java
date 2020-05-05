@@ -31,6 +31,7 @@ public class Animal {
     private String species;
 
     @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "animal_id")
     private List<Disease> diseases;
 
     @Embedded

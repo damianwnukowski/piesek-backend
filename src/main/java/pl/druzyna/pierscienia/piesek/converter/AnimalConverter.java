@@ -35,11 +35,14 @@ public class AnimalConverter {
                 .map(diseaseConverter::convertToDto)
                 .collect(Collectors.toList());
         animalDto.setDiseases(diseaseDtos);
-        animalDto.setPictureLocation(
-                ServletUriComponentsBuilder.fromCurrentContextPath()
-                        .path("/animal/{animalId}/picture/{id}")
-                        .queryParams(null)
-                        .buildAndExpand(animal.getId(), animal.getPicture().getUuid()).toUri());
+
+        if (animal.getPicture() != null) {
+            animalDto.setPictureLocation(
+                    ServletUriComponentsBuilder.fromCurrentContextPath()
+                            .path("/animal/{animalId}/picture/{id}")
+                            .queryParams(null)
+                            .buildAndExpand(animal.getId(), animal.getPicture().getUuid()).toUri());
+        }
         return animalDto;
     }
 }
