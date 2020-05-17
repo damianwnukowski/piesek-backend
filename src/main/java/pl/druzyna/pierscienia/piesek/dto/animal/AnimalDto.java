@@ -17,4 +17,5 @@ public class AnimalDto {
     private String species;
     private URI pictureLocation;
     private List<DiseaseDto> diseases;
+    private Date createdDate;
 }

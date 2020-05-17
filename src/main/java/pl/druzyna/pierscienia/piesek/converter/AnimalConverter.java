@@ -4,8 +4,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import pl.druzyna.pierscienia.piesek.dto.animal.AnimalDto;
-import pl.druzyna.pierscienia.piesek.entity.Animal;
-import pl.druzyna.pierscienia.piesek.entity.Disease;
+import pl.druzyna.pierscienia.piesek.model.entity.Animal;
+import pl.druzyna.pierscienia.piesek.model.entity.Disease;
 
 import java.util.List;
 import java.util.stream.Collectors;

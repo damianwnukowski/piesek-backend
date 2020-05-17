@@ -1,7 +1,7 @@
-package pl.druzyna.pierscienia.piesek.repository;
+package pl.druzyna.pierscienia.piesek.model.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import pl.druzyna.pierscienia.piesek.entity.UserAccount;
+import pl.druzyna.pierscienia.piesek.model.entity.UserAccount;
 
 import java.util.UUID;
 

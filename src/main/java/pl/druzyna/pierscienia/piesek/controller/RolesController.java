@@ -5,7 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.druzyna.pierscienia.piesek.entity.UserAccount;
+import pl.druzyna.pierscienia.piesek.model.entity.UserAccount;
 
 import java.util.Arrays;
 import java.util.List;

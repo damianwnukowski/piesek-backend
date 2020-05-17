@@ -1,4 +1,4 @@
-package pl.druzyna.pierscienia.piesek.entity;
+package pl.druzyna.pierscienia.piesek.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

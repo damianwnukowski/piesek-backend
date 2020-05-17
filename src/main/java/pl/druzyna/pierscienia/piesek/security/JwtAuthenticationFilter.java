@@ -7,7 +7,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import pl.druzyna.pierscienia.piesek.entity.UserAccount;
+import pl.druzyna.pierscienia.piesek.model.entity.UserAccount;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;

@@ -8,9 +8,9 @@ import org.springframework.data.util.Pair;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import pl.druzyna.pierscienia.piesek.entity.Animal;
-import pl.druzyna.pierscienia.piesek.entity.Picture;
-import pl.druzyna.pierscienia.piesek.repository.AnimalRepository;
+import pl.druzyna.pierscienia.piesek.model.entity.Animal;
+import pl.druzyna.pierscienia.piesek.model.entity.Picture;
+import pl.druzyna.pierscienia.piesek.model.repository.AnimalRepository;
 
 import javax.transaction.Transactional;
 import javax.validation.ValidationException;
@@ -57,8 +57,8 @@ public class AnimalService {
 
     @Transactional
     @PreAuthorize("hasRole('MANAGE_PET_CATALOG')")
-    public Page<Animal> getAnimals(Pageable pageable) {
-        return animalRepository.findAll(pageable);
+    public Page<Animal> getAnimals(Pageable pageable, String name, String species) {
+        return animalRepository.findAllByNameContainingIgnoreCaseAndSpeciesContainingIgnoreCase(pageable, name, species);
     }
 
     @Transactional
@@ -67,6 +67,11 @@ public class AnimalService {
         return animalRepository.findById(id).orElse(null);
     }
 
+    /**
+     *  Access is not limited per permission, but still UUID need to be sent. This makes easier for user to display
+     *  the image on their client for example embedding it in "<img>" tag because Authorization header doesn't need
+     *  to be sent.
+     */
     public Pair<byte[], String> getImage(UUID pictureId, Long animalId) throws IOException {
         var bytes = Files.readAllBytes(new File(picturesDirectory + "/" + pictureId.toString()).toPath());
         var mimeType = this.getAnimal(animalId).getPicture().getMimeType();

@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import pl.druzyna.pierscienia.piesek.dto.user.PasswordChangeDto;
 import pl.druzyna.pierscienia.piesek.dto.user.UserAccountDto;
 import pl.druzyna.pierscienia.piesek.dto.user.FinishUserCreateDto;
-import pl.druzyna.pierscienia.piesek.entity.UserAccount;
-import pl.druzyna.pierscienia.piesek.repository.UserAccountRepository;
+import pl.druzyna.pierscienia.piesek.model.entity.UserAccount;
+import pl.druzyna.pierscienia.piesek.model.repository.UserAccountRepository;
 
 import javax.transaction.Transactional;
 import javax.validation.ValidationException;

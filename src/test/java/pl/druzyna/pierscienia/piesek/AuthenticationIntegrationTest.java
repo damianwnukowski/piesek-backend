@@ -13,7 +13,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
-import pl.druzyna.pierscienia.piesek.entity.UserAccount;
+import pl.druzyna.pierscienia.piesek.model.entity.UserAccount;
 import pl.druzyna.pierscienia.piesek.security.SecurityConstants;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
-import pl.druzyna.pierscienia.piesek.entity.UserAccount;
-import pl.druzyna.pierscienia.piesek.repository.UserAccountRepository;
+import pl.druzyna.pierscienia.piesek.model.entity.UserAccount;
+import pl.druzyna.pierscienia.piesek.model.repository.UserAccountRepository;
 
 @Component
 public class DefaultAdminAccountCreator implements CommandLineRunner {

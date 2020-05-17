@@ -6,7 +6,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-import pl.druzyna.pierscienia.piesek.repository.UserAccountRepository;
+import pl.druzyna.pierscienia.piesek.model.repository.UserAccountRepository;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

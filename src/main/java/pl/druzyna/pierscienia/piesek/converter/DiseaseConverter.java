@@ -3,7 +3,7 @@ package pl.druzyna.pierscienia.piesek.converter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 import pl.druzyna.pierscienia.piesek.dto.animal.DiseaseDto;
-import pl.druzyna.pierscienia.piesek.entity.Disease;
+import pl.druzyna.pierscienia.piesek.model.entity.Disease;
 
 @Component
 public class DiseaseConverter {
