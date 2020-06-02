@@ -5,17 +5,23 @@ import lombok.Getter;
 import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import static javax.persistence.TemporalType.TIMESTAMP;
+
 @Entity
 @Data
+@EntityListeners(AuditingEntityListener.class)
 public class UserAccount {
 
     @Id
@@ -44,6 +50,10 @@ public class UserAccount {
     @NotNull
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @CreatedDate
+    @Temporal(TIMESTAMP)
+    private Date createdDate;
 
     private UUID activationToken;
 

@@ -2,6 +2,8 @@ package pl.druzyna.pierscienia.piesek.service;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -38,6 +40,13 @@ public class UserAccountService {
         this.userAccountRepository = userAccountRepository;
         this.javaMailSender = javaMailSender;
         this.passwordEncoder = passwordEncoder;
+    }
+
+    @PreAuthorize("hasRole('MANAGE_USER_ACCOUNTS')")
+    @Transactional
+    public Page<UserAccount> getUserAccounts(Pageable pageable, String name, String lastName, String email,
+                                             String role) {
+        return userAccountRepository.searchUsers(pageable, name, lastName, email, role);
     }
 
     @PreAuthorize("hasRole('ADD_USER_ACCOUNT')")
@@ -92,6 +101,12 @@ public class UserAccountService {
 
         validatePasswordAndSet(userAccount, passwordChangeDto.getPassword(), passwordChangeDto.getPasswordConfirm());
         userAccountRepository.save(userAccount);
+    }
+
+    @PreAuthorize("hasRole('ROLE_MANAGE_USER_ACCOUNTS')")
+    @Transactional
+    public UserAccount getUser(Long id) {
+        return userAccountRepository.findById(id).orElse(null);
     }
 
     private void validatePasswordAndSet(UserAccount userAccount, String newPassword, String newPasswordConfirm) {
