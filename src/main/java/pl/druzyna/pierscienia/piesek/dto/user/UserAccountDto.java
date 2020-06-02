@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Data
 public class UserAccountDto {
+    private Long id;
     private String email;
     private String name;
     private String lastName;
