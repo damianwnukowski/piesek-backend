@@ -13,13 +13,13 @@ shouldn't call any methods here.
 public class LoginController {
 
     @PostMapping(path = "/login")
-    public void login(@RequestBody UserAccountDto userAccountDto) {
+    public void login(@RequestBody LoginDto userAccountDto) {
         throw new IllegalStateException("This method shouldn't be executed, endpoint login should be handled by " +
                 "Spring Security filters.");
     }
 
     @Data
-    private static class UserAccountDto {
+    private static class LoginDto {
         private String email;
         private String password;
     }
