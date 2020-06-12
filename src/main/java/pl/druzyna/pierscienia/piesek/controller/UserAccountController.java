@@ -2,9 +2,11 @@ package pl.druzyna.pierscienia.piesek.controller;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pl.druzyna.pierscienia.piesek.converter.UserAccountConverter;
 import pl.druzyna.pierscienia.piesek.dto.user.PasswordChangeDto;
+import pl.druzyna.pierscienia.piesek.dto.user.UpdateUserAccountDto;
 import pl.druzyna.pierscienia.piesek.dto.user.UserAccountDto;
 import pl.druzyna.pierscienia.piesek.dto.user.FinishUserCreateDto;
 import pl.druzyna.pierscienia.piesek.service.UserAccountService;
@@ -57,5 +59,15 @@ public class UserAccountController {
     @PostMapping("/finalize-user-account-create")
     public void finalizeUserAccountCreate(@RequestBody FinishUserCreateDto userAccount) {
         userAccountService.finishCreateUserAccount(userAccount);
+    }
+
+    @PatchMapping
+    public void updateUserAccount(@RequestBody UpdateUserAccountDto updateUserAccountDto) {
+        userAccountService.updateUserAccount(updateUserAccountDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteUserAccount(@PathVariable Long id) {
+        userAccountService.deleteUserAccount(id);
     }
 }

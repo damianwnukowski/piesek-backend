@@ -11,6 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.druzyna.pierscienia.piesek.dto.user.PasswordChangeDto;
+import pl.druzyna.pierscienia.piesek.dto.user.UpdateUserAccountDto;
 import pl.druzyna.pierscienia.piesek.dto.user.UserAccountDto;
 import pl.druzyna.pierscienia.piesek.dto.user.FinishUserCreateDto;
 import pl.druzyna.pierscienia.piesek.model.entity.UserAccount;
@@ -21,6 +22,7 @@ import javax.validation.ValidationException;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 import java.util.UUID;
+import java.util.function.Supplier;
 
 @Service
 public class UserAccountService {
@@ -103,11 +105,41 @@ public class UserAccountService {
         userAccountRepository.save(userAccount);
     }
 
-    @PreAuthorize("hasRole('ROLE_MANAGE_USER_ACCOUNTS')")
+    @PreAuthorize("hasRole('MANAGE_USER_ACCOUNTS')")
     @Transactional
     public UserAccount getUser(Long id) {
         return userAccountRepository.findById(id).orElse(null);
     }
+
+    @PreAuthorize("hasRole('MANAGE_USER_ACCOUNTS')")
+    @Transactional
+    public void deleteUserAccount(Long id) {
+        UserAccount userAccount = userAccountRepository.findById(id).orElse(null);
+        String currentUserEmail = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (userAccount == null) {
+            throw new ValidationException("validation.user.account.not.found");
+        }
+        if (currentUserEmail.equals(userAccount.getEmail())) {
+            throw new ValidationException("validation.user.account.cant.delete");
+        }
+
+        userAccountRepository.delete(userAccount);
+    }
+
+    @PreAuthorize("hasRole('MANAGE_USER_ACCOUNTS')")
+    @Transactional
+    public void updateUserAccount(UpdateUserAccountDto updateUserAccountDto) {
+        UserAccount userAccount = userAccountRepository.findById(updateUserAccountDto.getId()).orElse(null);
+        if (userAccount == null) {
+            throw new ValidationException("validation.user.account.not.exists");
+        }
+        userAccount.setName(updateUserAccountDto.getName());
+        userAccount.setLastName(updateUserAccountDto.getLastName());
+        userAccount.setRole(updateUserAccountDto.getRole());
+        userAccountRepository.save(userAccount);
+    }
+
 
     private void validatePasswordAndSet(UserAccount userAccount, String newPassword, String newPasswordConfirm) {
         if (!newPassword.equals(newPasswordConfirm)){
